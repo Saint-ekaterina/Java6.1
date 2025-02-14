@@ -1,19 +1,33 @@
 package ru.netology.services;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.Test;
+
 
 public class CountMonthServiceTest {
 
-    @ParameterizedTest
-    @CsvFileSource(files="src/test/resources/month.csv")
-    public void RestCalculated (int expected, int income, int expense, int threshold) {
-        CountMonthService service = new CountMonthService();
 
-        int actual = service.calculate(income, expense, threshold);
+    @Test
+    public void testCashCountMonthServiceRich() {
+        CountMonthService service = new CountMonthService();
+        int expected = 2;
+        int income = 100_000; // доход от работы
+        int expenses = 60_000; // обязательные месячные траты
+        int threshold = 150_000; // есть возможность отдохнуть
+
+        int actual = service.calculate(income, expenses, threshold);
 
         Assertions.assertEquals(expected, actual);
     }
+    @Test
+    public void testCashCountMonthService() {
+        CountMonthService service = new CountMonthService();
+        int expected = 3;
+        int income = 10_000; // доход от работы
+        int expenses = 3_000; // обязательные месячные траты
+        int threshold = 20_000; // есть возможность отдохнуть
+        int actual = service.calculate(income, expenses, threshold);
 
+        Assertions.assertEquals(expected, actual);
+    }
 }
